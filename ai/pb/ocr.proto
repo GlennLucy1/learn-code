@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package ocr_grpc;
+option go_package = "pb/ocr";
+
+service OCR{
+  rpc Detect (DetectRequest)
+      returns (DetectResponse){}
+}
+
+message DetectRequest{
+  string b64_img = 1;
+}
+
+message DetectResponse{
+  repeated string response = 1;
+}
