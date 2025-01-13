@@ -1,6 +1,6 @@
 module github.com/GlennLucy1/learn-ai222
 
-go 1.23.1
+go 1.23
 
 require (
 	github.com/fogleman/gg v1.3.0

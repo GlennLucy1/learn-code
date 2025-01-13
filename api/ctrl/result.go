@@ -100,10 +100,10 @@ func CalcRate(detect []string, right []string) int {
 func GetOrder(detect []string, right []string) string {
 	final := ""
 	rightMap := make(map[string]int)
-	for i, v := range right {
+	for i, v := range detect {
 		rightMap[v] = i + 1
 	}
-	for _, v := range detect {
+	for _, v := range right {
 		final += strconv.Itoa(rightMap[v])
 	}
 	return final

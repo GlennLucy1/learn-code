@@ -17,6 +17,7 @@ class OCRServer(OCRServicer):
         b64_img = request.b64_img
         result = ocr.classification(b64_img)
         print("Detect at:", formatted_time, result, request.b64_img)
+        print()
         return DetectResponse(response=list(result))
 
 VALID_KEY = "123e4567-e89b-12d3-a456-426614174000"

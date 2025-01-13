@@ -37,7 +37,7 @@ func Detect(c *gin.Context) {
 		c.String(500, "mkdir temp")
 		return
 	}
-	defer os.RemoveAll(dir)
+	// defer os.RemoveAll(dir)
 
 	pngOutPath := filepath.Join(dir, "out.png")
 	if err := ctrl.DrawFromPixelArray(arg.Pixel, pngOutPath); err != nil {
@@ -61,7 +61,7 @@ func Detect(c *gin.Context) {
 	fmt.Println("ocr result ", result)
 	result = ctrl.CleanResult(result)
 
-	rightKey := strings.Split(arg.RightKey, "#")
+	rightKey := strings.SplitN(arg.RightKey, "", 4)
 	rightNum := ctrl.CalcRate(result, rightKey)
 
 	// 识别率 <= 2个文字，添加到待处理表
