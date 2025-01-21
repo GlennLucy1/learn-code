@@ -78,6 +78,46 @@ func Speculate(detect []string, right []string) []string {
 	return final
 }
 
+func GetUnused(m map[string]int) string {
+    for k, v := range m {
+       if v == 0 {
+          m[k]++
+          return k
+       }
+    }
+    return ""
+}
+
+func RandomGenerate(detect []string, right []string) []string {
+    final := make([]string, 0)
+    rightMap := NewOrderMap()
+
+    for _, v := range detect {
+       rightMap.Set(v, 1)
+    }
+
+    unused := make(map[string]int, 0)
+    for _, v := range right {
+       if val, _, ok := rightMap.Check(v); ok {
+          val += 1
+          rightMap.Set(v, val)
+       } else {
+          unused[v] = 0
+       }
+    }
+
+    for _, v := range rightMap.slice {
+       if v.Val == 2 {
+          final = append(final, v.Key)
+       }
+       if v.Val == 1 {
+          final = append(final, GetUnused(unused))
+       }
+    }
+
+    return final
+}
+
 func CleanResult(detect []string) []string {
 	if len(detect) >= 4 {
 		return detect[:4]
