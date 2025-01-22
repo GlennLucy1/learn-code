@@ -2,6 +2,7 @@ package ctrl
 
 import (
 	"strconv"
+	"fmt"
 )
 
 type KeyVal struct {
@@ -48,7 +49,25 @@ func (o *OrderMap) Check(k string) (int, int, bool) {
 	return 0, 0, false
 }
 
+func removeDuplicateElement(sli []string) []string {
+	result := make([]string, 0, len(sli))
+	temp := map[string]struct{}{}
+
+	for i, item := range sli {
+		if _, ok := temp[item]; !ok {
+			temp[item] = struct{}{}
+			result = append(result, item)
+		} else {
+			result = append(result, fmt.Sprintf("%s%d", item, i))
+		}
+	}
+
+	return result
+}
+
 func Speculate(detect []string, right []string) []string {
+	detect = removeDuplicateElement(detect)
+
 	final := make([]string, 0)
 	rightMap := NewOrderMap()
 
@@ -89,7 +108,9 @@ func GetUnused(m map[string]int) string {
 }
 
 func RandomGenerate(detect []string, right []string) []string {
-    final := make([]string, 0)
+    detect = removeDuplicateElement(detect)
+	
+	final := make([]string, 0)
     rightMap := NewOrderMap()
 
     for _, v := range detect {
